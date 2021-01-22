@@ -1,5 +1,6 @@
 const inquirer = require('inquirer')
 const fs = require('fs')
+let newTeamProfile = []
 
 
 function managerPrompt(){
@@ -57,7 +58,15 @@ function engineerPrompt(){
             name: 'engineerGithub',
             message: 'What is the Github username of the engineer?',
         },
-    ]);
+    ]).then(function(response){
+        var engineerName = response.engineerName;
+        var engineerID = response.engineerID;
+        var engineerEmail = response.engineerEmail;
+        var engineerGithub = response.engineerNumber
+        const newTeamProfile = new Engineer(engineerName, engineerID, engineerEmail, engineerGithub);
+        finalTeam.push(newTeamProfile);
+        teamMemPrompt();
+    })
 }    
 
 function internPrompt(){
@@ -82,7 +91,16 @@ function internPrompt(){
             name: 'internSchool',
             message: 'What school does the intern go to?',
         },
-    ]); 
+    ]).then(function(response){
+        var internName = response.internName;
+        var internID = response.internID;
+        var internEmail = response.internEmail;
+        var internSchool = response.internSchool
+        const newTeamProfile = new Intern(internName, internID, internEmail, internSchool);
+        finalTeam.push(newTeamProfile);
+        teamMemPrompt();
+    })
+} 
     
     function teamMemPrompt(){
         inquirer.prompt([
@@ -118,15 +136,13 @@ function internPrompt(){
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Manager ID: ${response.managerID}</li>
                     <li class="list-group-item">Manager Email: ${response.managerEmail}</li>
-                    <li class="list-group-item">Manager Number${response.managerNumnber}</li>
+                    <li class="list-group-item">Manager Number${response.managerNumber}</li>
                 </ul>
             </div>
 
     
     </body>
 </html>
-
-
     `
     fs.writeFile('index.html', data, (error) => {
 
