@@ -2,22 +2,24 @@ const inquirer = require('inquirer')
 const fs = require('fs')
 let newTeamProfile = []
 
+var Manager = require("./lib/employee")
+
 
 function managerPrompt(){
     inquirer.prompt([
         {
             type: 'input',
-            name: 'managerName',
+            name: 'name',
             message: 'Who is the team manager?',
         },
         {
             type: 'input',
-            name: 'managerID',
+            name: 'ID',
             message: 'What is the employee ID of the team manager?',
         },
         {
             type: 'input',
-            name: 'managerEmail',
+            name: 'email',
             message: 'What is the team managers email?',
         },
         {
@@ -26,31 +28,68 @@ function managerPrompt(){
             message: 'What is the office number of the team manager?',
         },
     ]).then(function(response){
-        var managerName = response.managerName;
-        var managerID = response.managerID;
-        var managerEmail = response.managerEmail;
+        var name = response.name;
+        var ID = response.ID;
+        var email = response.email;
         var managerNumber = response.managerNumber
-        const newTeamProfile = new Manager(managerName, managerID, managerEmail, managerNumber);
-        finalTeam.push(newTeamProfile);
+        const newTeamMem = new Manager(name, ID, email, managerNumber);
+        newTeamProfile.push(newTeamMem);
         teamMemPrompt();
+
+        const data = `
+    <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <title>My Team</title>
+        </head>
+        <body>
+            <nav class="navbar navbar-dark bg-dark">
+                <span class="navbar-brand mb-0 h1 w-100 text-center">My Team</span>
+                <p id="myTeam" class="lead"></p>
+            </nav>
+
+            <div class="card" style="width: 18rem;">
+            <div class="card-header">Team Manager: ${response.name}</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Manager ID: ${response.ID}</li>
+                    <li class="list-group-item">Manager Email: ${response.email}</li>
+                    <li class="list-group-item">Manager Number${response.number}</li>
+                </ul>
+            </div>
+
+    
+    </body>
+</html>
+    `
+
+    fs.writeFile('index.html', data, (error) => {
+
+        error ? console.error(error) : console.log('success!')
+});
     })
+
 }
 
 function engineerPrompt(){
     inquirer.prompt([
         {
             type: 'input',
-            name: 'engineerName',
+            name: 'name',
             message: 'What is the name of the engineer you are inputting?',
         },
         {
             type: 'input',
-            name: 'engineerID',
+            name: 'ID',
             message: 'What is the employee ID of the engineer?',
         },
         {
             type: 'input',
-            name: 'engineerEmail',
+            name: 'email',
             message: 'What is the engineers email?',
         },
         {
@@ -73,17 +112,17 @@ function internPrompt(){
     inquirer.prompt([
         {
             type: 'input',
-            name: 'internName',
+            name: 'name',
             message: 'What is the name of the intern you are inputting?',
         },
         {
             type: 'input',
-            name: 'internID',
+            name: 'ID',
             message: 'What is the employee ID of the intern?',
         },
         {
             type: 'input',
-            name: 'internEmail',
+            name: 'email',
             message: 'What is the interns email?',
         },
         {
@@ -114,37 +153,6 @@ function internPrompt(){
     }
 
 
-    const data = `
-    <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="style.css">
-        <title>My Team</title>
-        </head>
-        <body>
-            <nav class="navbar navbar-dark bg-dark">
-                <span class="navbar-brand mb-0 h1 w-100 text-center">My Team</span>
-                <p id="myTeam" class="lead"></p>
-            </nav>
-
-            <div class="card" style="width: 18rem;">
-            <div class="card-header">Team Manager: ${response.managerName}</div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Manager ID: ${response.managerID}</li>
-                    <li class="list-group-item">Manager Email: ${response.managerEmail}</li>
-                    <li class="list-group-item">Manager Number${response.managerNumber}</li>
-                </ul>
-            </div>
-
     
-    </body>
-</html>
-    `
-    fs.writeFile('index.html', data, (error) => {
 
-        error ? console.error(error) : console.log('success!')
-});
+managerPrompt();
