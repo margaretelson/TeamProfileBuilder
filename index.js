@@ -8,7 +8,7 @@ function createApp(){
 }
 
 
-var Employee = require("./lib/employee.js")
+// var Employee = require("./lib/employee.js")
 var Manager = require("./lib/manager.js")
 var Engineer = require("./lib/engineer.js")
 var Intern = require("./lib/intern.js")
