@@ -13,7 +13,7 @@ describe("getRole", () => {
 
 describe("getName", () => {
     // Positive test
-    it("should return 'Intern' from getRole()", () => {
+    it("should return 'Sam' from getName()", () => {
       // Arrange
       const intern = new Intern("Sam", 43, "sam@gmail.com", "Columbia");
       // Assert
@@ -24,7 +24,7 @@ describe("getName", () => {
 
 describe("getID", () => {
     // Positive test
-    it("should return 'Intern' from getRole()", () => {
+    it("should return 'Intern' from getID()", () => {
       // Arrange
       const intern = new Intern("Sam", 43, "sam@gmail.com", "Columbia");
       // Assert
@@ -35,7 +35,7 @@ describe("getID", () => {
 
 describe("getEmail", () => {
     // Positive test
-    it("should return 'Intern' from getRole()", () => {
+    it("should return 'sam@gmail.com' from getEmail()", () => {
       // Arrange
       const intern = new Intern("Sam", 43, "sam@gmail.com", "Columbia");
       // Assert
@@ -46,7 +46,7 @@ describe("getEmail", () => {
 
 describe("getSchool", () => {
     // Positive test
-    it("should return 'Intern' from getRole()", () => {
+    it("should return 'Columbia' from getSchool()", () => {
       // Arrange
       const intern = new Intern("Sam", 43, "sam@gmail.com", "Columbia");
       // Assert
